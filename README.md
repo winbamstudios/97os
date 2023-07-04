@@ -1,2 +1,2 @@
-# 97os
-Welcome to the 97OS github page!
+# 97OS - The Web-Based Operating System
+welcome, i suck at this
