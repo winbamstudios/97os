@@ -16,33 +16,39 @@
   </style>
 </head>
 <body>
+  <div id="window-container"></div>
+
+  <button id="createWindowBtn">Create Window</button>
+
   <script src="winbox.min.js"></script>
   <script>
-    const win = new WinBox({
-      title: 'Test Window',
-      width: '300px',
-      height: '200px',
-      x: 'center',
-      y: 'center',
-      mount: document.body,
-      onclose: function() {
-        console.log("Window is closed");
-      }
-    });
+    document.getElementById('createWindowBtn').addEventListener('click', function() {
+      const win = new WinBox({
+        title: 'Test Window',
+        width: '300px',
+        height: '200px',
+        x: 'center',
+        y: 'center',
+        mount: document.getElementById('window-container'),
+        onclose: function() {
+          console.log("Window is closed");
+        }
+      });
 
-    win.mount(document.createElement('div'));
+      win.mount(document.createElement('div'));
 
-    win.body.innerHTML = `
-      <div class="winbox-content">
-        <p>This is a test window created with WinBox.</p>
-        <button id="closeBtn">Close</button>
-      </div>
-    `;
+      win.body.innerHTML = `
+        <div class="winbox-content">
+          <p>This is a test window created with WinBox.</p>
+          <button id="closeBtn">Close</button>
+        </div>
+      `;
 
-    // Close button functionality
-    const closeBtn = win.body.querySelector('#closeBtn');
-    closeBtn.addEventListener('click', () => {
-      win.close();
+      // Close button functionality
+      const closeBtn = win.body.querySelector('#closeBtn');
+      closeBtn.addEventListener('click', () => {
+        win.close();
+      });
     });
   </script>
 </body>
