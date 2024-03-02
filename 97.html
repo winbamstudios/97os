@@ -1,8 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Basic Window with Button</title>
-<link rel="stylesheet" href="winbox.css"> <script src="winbox.min.js"></script> <script src="script.js"></script> </head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Window with Button</title>
+  <link rel="stylesheet" href="winbox.css">
+  <style>
+    /* Optional styles for the window */
+  </style>
+</head>
 <body>
+  <div id="window-container"></div>
+
+  <script src="winbox.min.js"></script>
+  <script>
+  const winbox = new WinBox({
+    title: 'My Window',
+    width: '400px',
+    height: '300px',
+    mount: document.getElementById('window-container'),
+    template: `
+      <div class="winbox-titlebar">
+        {{title}}
+        <div class="winbox-controls">
+          <button class="winbox-close">×</button>
+        </div>
+      </div>
+      <div class="winbox-body">
+        <button class="winbox-button">Click Me</button>
+      </div>
+    `,
+    onClose: () => {
+      console.log('Window closed');
+    }
+  });
+
+  // Optional: Handle button click
+  const button = winbox.el.querySelector('.winbox-button');
+  button.addEventListener('click', () => {
+    console.log('Button clicked!');
+  });
+  </script>
 </body>
 </html>
