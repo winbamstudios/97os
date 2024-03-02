@@ -3,42 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Window with Button</title>
+  <title>Test Window with WinBox</title>
   <link rel="stylesheet" href="winbox.css">
   <style>
     /* Optional styles for the window */
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .winbox-content {
+      padding: 20px;
+    }
   </style>
 </head>
 <body>
-  <div id="window-container"></div>
-
   <script src="winbox.min.js"></script>
   <script>
-    const winbox = new WinBox({
-      title: 'My Window',
-      width: '400px',
-      height: '300px',
-      mount: document.getElementById('window-container'),
-      template: `
-        <div class="winbox-titlebar">
-          {{title}}
-          <div class="winbox-controls">
-            <button class="winbox-close">×</button>
-          </div>
-        </div>
-        <div class="winbox-body">
-          <button class="winbox-button">Click Me</button>
-        </div>
-      `,
-      onClose: () => {
-        console.log('Window closed');
+    const win = new WinBox({
+      title: 'Test Window',
+      width: '300px',
+      height: '200px',
+      x: 'center',
+      y: 'center',
+      mount: document.body,
+      class: ['winbox-class'],
+      onclose: function() {
+        console.log("Window is closed");
+      },
+      onfocus: function() {
+        console.log("Window is focused");
+      },
+      onblur: function() {
+        console.log("Window lost focus");
       }
     });
 
-    // Optional: Handle button click
-    const button = winbox.el.querySelector('.winbox-button');
-    button.addEventListener('click', () => {
-      console.log('Button clicked!');
+    win.mount(document.createElement('div'));
+
+    win.body.innerHTML = `
+      <div class="winbox-content">
+        <p>This is a test window created with WinBox.</p>
+        <button id="closeBtn">Close</button>
+      </div>
+    `;
+
+    // Close button functionality
+    const closeBtn = win.body.querySelector('#closeBtn');
+    closeBtn.addEventListener('click', () => {
+      win.close();
     });
   </script>
 </body>
